@@ -15,22 +15,36 @@ parser.add_argument('--people', type=int,
 parser.add_argument('--number_of_runs', type=int,
                     help='Specified number of runs.', required=True)
 
+parser.add_argument('--digits_after_dot', type=int,
+                    help='Specified number of digits after dot.')
+
 args = parser.parse_args()
 
-
-
 days_in_year = 365 if args.days_in_year is None else args.days_in_year
-if args.people is None:
-    print("'--people' is a Required param")
-    sys.exit()
-
 people = args.people
 number_of_runs = args.number_of_runs
+digit_after_dot = 10 if args.digits_after_dot is None else args.digits_after_dot
+
+if digit_after_dot > 10 or digit_after_dot < 1:
+    print("'--digits_after_dot' can't be larger than 10 or smaller than 1.")
+
+if days_in_year < 100 or days_in_year > 1000:
+    print("'--days_in_year' can't be less than 100 or larger than 1,000.")
+    sys.exit()
+
+if people < 2 or people > 1000:
+    print("'--people' can't be less than 2 or larger than 1,000.")
+    sys.exit()
+
+if number_of_runs < 2 or number_of_runs > 10000:
+    print("'--number_of_runs' can't be less than 2 or larger than 10,000.")
+    sys.exit()
 
 counter = {'shared': 0, 'not_shared': 0}
 
-# LOGIC
 
+
+# LOGIC
 def generate_random_birthday():
     try:
         days = []
@@ -65,14 +79,14 @@ def culculate():
 
 
 culculate()
-if counter['shared'] == 0 or counter['not_shared'] == 0:
+if counter['shared'] == 0 and counter['not_shared'] == 0:
     print("counter dictionary paras is is equal to zero, something went wrong.")
     sys.exit()
 
+if counter['shared'] == 0 or counter['not_shared'] == 0:
+    print("Given " + str(people) + " people, the chance of a shared birthday is almost zero")
+    sys.exit()
+
 p = counter['shared'] / (counter['shared'] + counter['not_shared'])
-output_value = 1 - p
+output_value = round(1 - p, digit_after_dot)
 print("Given " + str(people) + " people, the chance of a shared birthday is " + str(output_value))
-
-
-
-#print(decinal(365))
