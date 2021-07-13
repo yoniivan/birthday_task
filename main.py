@@ -68,7 +68,3 @@ if counter['shared'] == 0 or counter['not_shared'] == 0:
 p = counter['shared'] / (counter['shared'] + counter['not_shared'])
 output_value = 1 - p
 print("Given " + str(people) + " people, the chance of a shared birthday is " + str(output_value))
-
-
-
-#print(decinal(365))
