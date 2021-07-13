@@ -45,18 +45,22 @@ def generate_random_birthday():
 
 
 def culculate():
-    for _ in range(number_of_runs):
-        original_list = generate_random_birthday()
-        disctinct_list = generate_random_birthday()
-        if original_list is None or disctinct_list is None:
-            print('This program is terminated.')
-            return
+    try:
+        for _ in range(number_of_runs):
+            original_list = generate_random_birthday()
+            disctinct_list = generate_random_birthday()
+            if original_list is None or disctinct_list is None:
+                print('This program is terminated.')
+                return
 
-        disctinct_list = set(disctinct_list)
-        if(len(original_list) == len(disctinct_list)):
-            counter['shared'] += 1
-        else:
-            counter['not_shared'] += 1
+            disctinct_list = set(disctinct_list)
+            if (len(original_list) == len(disctinct_list)):
+                counter['shared'] += 1
+            else:
+                counter['not_shared'] += 1
+    except Exception as e:
+        print('Exception error from culculate(), message: ' + str(e))
+        sys.exit()
 
 
 
@@ -68,3 +72,7 @@ if counter['shared'] == 0 or counter['not_shared'] == 0:
 p = counter['shared'] / (counter['shared'] + counter['not_shared'])
 output_value = 1 - p
 print("Given " + str(people) + " people, the chance of a shared birthday is " + str(output_value))
+
+
+
+#print(decinal(365))
